@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search & Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: white;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .search-btn { background-color: #28a745; color: white; }
+        .recommend-btn { background-color: #007bff; color: white; }
+        .movie-container, .recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #333;
+        }
+        img {
+            width: 200px;
+            border-radius: 10px;
+        }
+        .movie-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Movie Search & Recommendations</h1>
+
+    <div class="container">
+        <input type="text" id="searchInput" placeholder="Enter movie name...">
+        <button class="search-btn" onclick="searchMovie()">Search</button>
+        <button class="recommend-btn" onclick="getRecommendations()">Get Recommendations</button>
+    </div>
+
+    <div id="movieDetails" class="movie-container"></div>
+    <h2 id="recTitle" style="display: none;">Similar Movies</h2>
+    <div id="recommendations" class="movie-list"></div>
+
+    <script>
+        const apiKey = "f6cf4e1fe3dc615ad725ecd19cba4559";
+        let movieId = null;
+
+        // Search for a movie by name
+        function searchMovie() {
+            const movieName = document.getElementById("searchInput").value;
+            if (!movieName) {
+                alert("Please enter a movie name!");
+                return;
+            }
+
+            const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieName)}`;
+
+            fetch(searchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.results.length === 0) {
+                        alert("Movie not found!");
+                        return;
+                    }
+
+                    const movie = data.results[0];  // First result
+                    movieId = movie.id;  // Store the movie ID for recommendations
+                    document.getElementById("movieDetails").innerHTML = `
+                        <h2>${movie.title}</h2>
+                        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="Movie Poster">
+                        <p><strong>Release Date:</strong> ${movie.release_date}</p>
+                        <p><strong>Rating:</strong> ${movie.vote_average}/10</p>
+                        <p><strong>Overview:</strong> ${movie.overview}</p>
+                    `;
+
+                    document.getElementById("recommendations").innerHTML = "";
+                    document.getElementById("recTitle").style.display = "none";
+                })
+                .catch(error => console.error("Error fetching movie:", error));
+        }
+
+        // Get recommended movies based on searched movie
+        function getRecommendations() {
+            if (!movieId) {
+                alert("Search for a movie first!");
+                return;
+            }
+
+            const recUrl = `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${apiKey}&language=en-US`;
+
+            fetch(recUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.results.length === 0) {
+                        alert("No recommendations found for this movie.");
+                        return;
+                    }
+
+                    document.getElementById("recommendations").innerHTML = data.results
+                        .slice(0, 15) // Show top 6 recommendations
+                        .map(movie => `
+                            <div>
+                                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                                <p><strong>${movie.title}</strong></p>
+                                <p>⭐ ${movie.vote_average}/10</p>
+                            </div>
+                        `)
+                        .join("");
+
+                    document.getElementById("recTitle").style.display = "block";
+                })
+                .catch(error => console.error("Error fetching recommendations:", error));
+        }
+    </script>
+
+</body>
+</html>
