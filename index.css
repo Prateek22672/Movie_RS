@@ -1,0 +1,266 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #302f2f;
+    color: white;
+    position: relative;
+}
+
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('Imagen\ de\ WhatsApp\ 2025-02-17\ a\ las\ 19.58.22_b2dbe4c7.jpg') center/cover no-repeat;
+    filter: blur(5px); /* Adjust blur intensity */
+    z-index: -1; /* Keep it behind content */
+}
+
+
+
+
+.main {
+    padding: 2%;
+    background-color: black;
+    border-radius: 30px;
+    position: sticky;
+    display: flex; /* Enable flexbox for layout */
+    align-items: center; /* Vertically align items */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: center; /* Center items horizontally */
+}
+
+.main .header {
+    width: 100px;
+    margin: 10px; /* Add some margin around the logo */
+    order: 1; /* Place logo first */
+    padding-left: 0px;
+    padding-right: 200px;
+}
+
+.x{
+    position: absolute;
+    left: 160px;
+    z-index: 2;
+    font-size: 18px;
+    color: rgb(210, 209, 204);
+    
+}
+
+.name{
+    position: absolute;
+    width: 90px;
+    left: 200px;
+    z-index: 2;
+    color: rgb(229, 9, 20);
+    font-weight: bolder;
+}
+
+.bar {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 100px;
+    outline: none;
+    border: none;
+    margin: 10px; /* Add some margin around the input */
+    order: 2; /* Place input second */
+    flex-grow: 1; /* Allow input to expand to fill available space */
+
+}
+
+
+.search_icon {
+    position: absolute;
+    cursor: pointer;
+    width: 2%; /* Adjusted width */
+    border-radius: 100px;
+    margin-top: -0.7%; /* Add some margin around the search icon */
+    order: 3; /* Place search icon third */
+    margin-left: 40%;
+    padding-top: 10px;
+    
+}
+
+
+.recommend_btn {
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px; /* Add some margin around the button */
+    order: 4; /* Place button fourth */
+    white-space: nowrap; /* Prevent button text from wrapping */
+    margin-left: 180px;
+}
+
+/* Media query for smaller screens (e.g., tablets and phones) */
+@media (max-width: 768px) {
+    .main input {
+        width: 80%; /* Make input wider on smaller screens */
+        order: 2; /* Ensure input stays in the correct order */
+        flex-grow: 0; /* Prevent input from expanding too much */
+    }
+
+    .main img {
+        width: 5%; /* Make search icon bigger on smaller screens */
+    }
+
+    .recommend_btn {
+        width: auto; /* Adjust button width */
+        order: 4;
+    }
+}
+.movie-container, .movie-list {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #000000;
+    text-align: left;
+}
+
+.movie-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.movie-list div {
+    width: 150px;
+    text-align: center;
+}
+
+.movie-list img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+.title{
+    text-align: left;
+    margin-left: 150px;
+}
+
+.poster{
+    width: 40vh;
+    border-radius: 30px;
+    margin-left: 135px;
+}
+
+.Release_Date{
+    position: absolute;
+    right: 60vh;
+    top: 110vh;
+}
+
+.Rating{
+    text-align: right;
+    position: absolute;
+    right: 66.6vh;
+    top: 115vh;
+}
+
+.Overview{
+    text-align: left;
+    position: absolute;
+    padding-left: 500px;
+    padding-right: 100px;
+    top: 95vh;
+}
+
+
+/* Remove the unwanted gray parts */
+body {
+    background: #000; /* Set the background to black */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Carousel Container */
+.carousel-container {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Trending Movies Carousel */
+.trending-carousel {
+    display: flex;
+    gap: 15px;
+    transition: transform 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+/* Movie Item */
+.trending-item {
+    min-width: 150px;
+    text-align: center;
+    flex: 0 0 auto;
+}
+
+.trending-item img {
+    width: 140px;
+    border-radius: 10px;
+}
+
+/* Navigation Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.left-btn {
+    left: 0;
+}
+
+.right-btn {
+    right: 0;
+}
+
+
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 768px) {
+    .main {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .main input {
+        width: 80%;
+    }
+
+    .main img {
+        width: 35px;
+    }
+
+    .recommend_btn {
+        width: 80%;
+        font-size: 14px;
+    }
+
+    .movie-list {
+        flex-wrap: wrap;
+    }
+
+    .movie-list div {
+        width: 45%;
+    }
+
+    .poster {
+        width: 80%;
+    }
+}
+
